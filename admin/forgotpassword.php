@@ -8,36 +8,36 @@
 
           if (!empty($getPasswordError)) {
               ?>
-              <div class="alert alert-danger">
-                  <?php echo $getPasswordError; ?>
-              </div>
-          <?php } ?>
+<div class="alert alert-danger">
+    <?php echo $getPasswordError; ?>
+</div>
+<?php } ?>
 
-          <?php if (!empty($getPasswordSuccess)) { ?>
-              <br/>
-              <div class="alert alert-success">
-                  <?php echo $getPasswordSuccess; ?>
-              </div>
-          <?php } ?>
-          <form method="post" class="wc-forgot-pwd-form">
-              <div class="forgot_pwd_form">
-                  <div class="log_user">
-                      <label for="user_login">Username or E-mail:</label>
-                      <?php $user_login = isset($_POST['user_login']) ? $_POST['user_login'] : ''; ?>
-                      <input type="text" name="user_login" id="user_login" value="<?php echo $user_login; ?>" />
-                  </div>
-                  <div class="log_user">
-                      <?php
+<?php if (!empty($getPasswordSuccess)) { ?>
+<br />
+<div class="alert alert-success">
+    <?php echo $getPasswordSuccess; ?>
+</div>
+<?php } ?>
+<form method="post" class="wc-forgot-pwd-form">
+    <div class="forgot_pwd_form">
+        <div class="log_user">
+            <label for="user_login">Username or E-mail:</label>
+            <?php $user_login = isset($_POST['user_login']) ? $_POST['user_login'] : ''; ?>
+            <input type="text" name="user_login" id="user_login" value="<?php echo $user_login; ?>" />
+        </div>
+        <div class="log_user">
+            <?php
                       ob_start();
                       do_action('lostpassword_form');
                       echo ob_get_clean();
                       ?>
-                      <?php wp_nonce_field('userGetPassword', 'formType'); ?>
-                      <button type="submit" class="get_new_password">Get New Password</button>
-                  </div>
-              </div>
-          </form>
-          <?php
+            <?php wp_nonce_field('userGetPassword', 'formType'); ?>
+            <button type="submit" class="get_new_password">Get New Password</button>
+        </div>
+    </div>
+</form>
+<?php
       }
 
       $forgot_pwd_form = ob_get_clean();

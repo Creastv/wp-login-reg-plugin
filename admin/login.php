@@ -1,5 +1,5 @@
 <?php
-   add_shortcode('lr-login_form', 'lr_login_form_callback');
+   add_shortcode('lr-login-form', 'lr_login_form_callback');
 
   function lr_login_form_callback() {
       ob_start();
@@ -7,30 +7,30 @@
           global $errors_login;
           if (!empty($errors_login)) {
               ?>
-              <div class="alert alert-danger">
-                  <?php echo $errors_login; ?>
-              </div>
-          <?php } ?>
-          <form method="post" class="wc-login-form">
-              <div class="login_form">
-                  <div class="log_user">
-                      <label for="user_name">Username</label>
-                      <input name="log" type="text" id="user_name" value="<?php echo $_POST['log']; ?>">
-                  </div>
-                  <div class="log_pass">
-                      <label for="user_password">Password</label>
-                      <input name="pwd" id="user_password" type="password">
-                  </div>
-                  <?php
+<div class="alert alert-danger">
+    <?php echo $errors_login; ?>
+</div>
+<?php } ?>
+<form method="post" class="wc-login-form">
+    <div class="login_form">
+        <div class="log_user">
+            <label for="user_name">Username</label>
+            <input name="log" type="text" id="user_name" value="<?php echo $_POST['log']; ?>">
+        </div>
+        <div class="log_pass">
+            <label for="user_password">Password</label>
+            <input name="pwd" id="user_password" type="password">
+        </div>
+        <?php
                   ob_start();
                   do_action('login_form');
                   echo ob_get_clean();
                   ?>
-                  <?php wp_nonce_field('userLogin', 'formType'); ?>
-              </div>
-              <button type="submit">LOG IN</button>
-          </form>
-          <?php
+        <?php wp_nonce_field('userLogin', 'formType'); ?>
+    </div>
+    <button type="submit">LOG IN</button>
+</form>
+<?php
       } else {
           echo '<p class="error-logged">You are already logged in.</p>';
       }
@@ -64,7 +64,7 @@
               if (is_wp_error($user)) {
                   $errors_login = $user->get_error_message();
               } else {
-                  wp_redirect(site_url());
+                   wp_redirect(site_url('/member-account/'));
                   exit;
               }
           }

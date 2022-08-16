@@ -7,58 +7,58 @@
           global $registrationError, $registrationSuccess;
           if (!empty($registrationError)) {
               ?>
-              <div class="alert alert-danger">
-                  <?php echo $registrationError; ?>
-              </div>
-          <?php } ?>
+<div class="alert alert-danger">
+    <?php echo $registrationError; ?>
+</div>
+<?php } ?>
 
-          <?php if (!empty($registrationSuccess)) { ?>
-              <br/>
-              <div class="alert alert-success">
-                  <?php echo $registrationSuccess; ?>
-              </div>
-          <?php } ?>
+<?php if (!empty($registrationSuccess)) { ?>
+<br />
+<div class="alert alert-success">
+    <?php echo $registrationSuccess; ?>
+</div>
+<?php } ?>
 
 
-          <form method="post" class="wc-register-form">
-              <div class="register_form">
-                  <div class="log_user">
-                      <label for="user_name">User name</label>
-                      <?php $user_name = isset($_POST['user_name']) ? $_POST['user_name'] : ''; ?>
-                      <input type="text" name="user_name" id="user_name" value="<?php echo $user_name; ?>" />
-                  </div>
+<form method="post" class="wc-register-form">
+    <div class="register_form">
+        <div class="log_user">
+            <label for="user_name">User name</label>
+            <?php $user_name = isset($_POST['user_name']) ? $_POST['user_name'] : ''; ?>
+            <input type="text" name="user_name" id="user_name" value="<?php echo $user_name; ?>" />
+        </div>
 
-                  <div class="log_user">
-                      <label for="user_email">Email address</label>
-                      <?php $user_email = isset($_POST['user_email']) ? $_POST['user_email'] : ''; ?>
-                      <input type="email" name="user_email" id="user_email" value="<?php echo $user_email; ?>" />
-                  </div>
+        <div class="log_user">
+            <label for="user_email">Email address</label>
+            <?php $user_email = isset($_POST['user_email']) ? $_POST['user_email'] : ''; ?>
+            <input type="email" name="user_email" id="user_email" value="<?php echo $user_email; ?>" />
+        </div>
 
-                  <div class="log_pass">
-                      <label for="user_password">Password</label>
-                      <input type="password" name="user_password" id="user_password" />
-                  </div>
+        <div class="log_pass">
+            <label for="user_password">Password</label>
+            <input type="password" name="user_password" id="user_password" />
+        </div>
 
-                  <div class="log_pass">
-                      <label for="user_cpassword">Password again</label>
-                      <input type="password" name="user_cpassword" id="user_cpassword" />
-                  </div>
+        <div class="log_pass">
+            <label for="user_cpassword">Password again</label>
+            <input type="password" name="user_cpassword" id="user_cpassword" />
+        </div>
 
-                  <div class="log_pass">
-                      <?php
+        <div class="log_pass">
+            <?php
                       ob_start();
                       do_action('register_form');
                       echo ob_get_clean();
                       ?>
-                  </div>
+        </div>
 
-                  <div class="log_user">
-                      <?php wp_nonce_field('userRegister', 'formType'); ?>
-                      <button type="submit" class="register_user">Register</button>
-                  </div>
-              </div>
-          </form>
-          <?php
+        <div class="log_user">
+            <?php wp_nonce_field('userRegister', 'formType'); ?>
+            <button type="submit" class="register_user">Register</button>
+        </div>
+    </div>
+</form>
+<?php
       } else {
           echo '<p class="error-logged">You are already logged in.</p>';
       }
@@ -121,7 +121,9 @@
               $userdata = array(
                   'user_login' => $user_login,
                   'user_pass' => $u_pwd,
-                  'user_email' => $user_email
+                  'user_email' => $user_email,
+                  'show_admin_bar_front' => 'false',
+                  'role' => 'seller',
               );
 
               $errors = wp_insert_user($userdata);
@@ -135,7 +137,7 @@
                   wp_set_auth_cookie($errors);
                   do_action('wp_login', $u_name);
 
-                  wp_redirect(site_url());
+                  wp_redirect(site_url('/member-account/'));
                   exit;
               }
           }
